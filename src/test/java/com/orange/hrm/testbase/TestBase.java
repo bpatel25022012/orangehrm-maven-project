@@ -2,6 +2,7 @@ package com.orange.hrm.testbase;
 
 import com.orange.hrm.basepage.BasePage;
 import com.orange.hrm.browserselector.BrowserSelector;
+import com.orange.hrm.loadproperty.LoadProperty;
 import org.openqa.selenium.Point;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -13,12 +14,14 @@ Created By Bhavesh
 */
 public class TestBase extends BasePage {
     BrowserSelector browserSelector = new BrowserSelector();
-    String baseUrl = "https://www.orangehrm.com/";
+    LoadProperty loadProperty = new LoadProperty();
+    String baseUrl = loadProperty.getProperty("baseUrl");
+    String browser = loadProperty.getProperty("browser");
 
     @BeforeMethod
 
     public void openBrowser(){
-        browserSelector.selectBrowser("chrome");
+        browserSelector.selectBrowser(browser);
         driver.manage().window().setPosition(new Point(-2000, 0));//display into second screen
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
